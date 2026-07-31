@@ -52,6 +52,12 @@
     <Compile Include="Form_01_Hello.Designer.cs">
       <DependentUpon>Form_01_Hello.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form_02_1_Report.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_02_1_Report.Designer.cs">
+      <DependentUpon>Form_02_1_Report.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form_02_Loan.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -63,6 +69,9 @@
     <Compile Include="Utility.cs" />
     <EmbeddedResource Include="Form_01_Hello.resx">
       <DependentUpon>Form_01_Hello.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_02_1_Report.resx">
+      <DependentUpon>Form_02_1_Report.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_02_Loan.resx">
       <DependentUpon>Form_02_Loan.cs</DependentUpon>

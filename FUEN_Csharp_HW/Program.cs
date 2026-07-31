@@ -16,7 +16,7 @@ namespace FUEN_Csharp_HW
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form_01_Hello());
+            Application.Run(new Form_02_Loan());
         }
     }
 }

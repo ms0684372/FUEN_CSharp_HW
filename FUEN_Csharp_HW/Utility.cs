@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace FUEN_Csharp_HW
 {
-    internal class LoanData
+    public class LoanData
     {
         public LoanData(decimal loanAmount, int year, decimal annualRate, decimal downPayment)
         {
