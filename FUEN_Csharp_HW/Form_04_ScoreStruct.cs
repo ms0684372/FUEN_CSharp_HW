@@ -12,12 +12,16 @@ namespace FUEN_Csharp_HW
 {
     public partial class Form_04_ScoreStruct : Form
     {
+        private List<Student> students = new List<Student>();
+        private const int ScoreMax = 100;
+        private const int ScoreMin = 0;
+
+
         public Form_04_ScoreStruct()
         {
             InitializeComponent();
         }
 
-        List<Student> students = new List<Student>();
         private void btnSave_Click(object sender, EventArgs e)
         {   //確認姓名欄位是否為空
             if (string.IsNullOrEmpty(textName.Text.Trim()))
@@ -47,15 +51,18 @@ namespace FUEN_Csharp_HW
             listStudent.Items.Add($"{students.Count} {student.Name}");
         }
 
+        /// <summary>
+        /// 驗證分數欄位, 失敗時會自動Focus和SelectAll
+        /// </summary>
         private bool VerifyTxtScore(TextBox textbox, out int score, string emptyMsg, string parseFailedMsg)
         {
             if (!InputValidator.ValidateInt(textbox, out score, emptyMsg, parseFailedMsg))
                 return false;
-            if (score < 0)
+            if (score < ScoreMin || score > ScoreMax)
             {
                 textbox.Focus();
                 textbox.SelectAll();
-                MessageBox.Show("分數不得小於0，");
+                MessageBox.Show($"請輸入{ScoreMin}至{ScoreMax}的數值");
                 return false;
             }
             return true;
@@ -99,20 +106,26 @@ namespace FUEN_Csharp_HW
         private void btnClear_Click(object sender, EventArgs e)
         {
             DialogResult result = MessageBox.Show("確定要清空所有資料嗎?", "清空資料", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-            if(result == DialogResult.Yes)
+            if (result == DialogResult.Yes)
             {
                 students.Clear();
                 listStudent.Items.Clear();
                 ClearResults();
                 MessageBox.Show("清空所有資料成功!");
-            }    
+            }
         }
 
+        /// <summary>
+        /// 清空輸入欄位
+        /// </summary>
         private void ClearField()
         {
             textName.Text = textCh.Text = textMath.Text = textEn.Text = "";
         }
 
+        /// <summary>
+        /// 清空成績Label內容
+        /// </summary>
         private void ClearResults()
         {
             labelResult.Text = labelMaxAndMin.Text = "";
