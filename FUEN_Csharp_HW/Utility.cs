@@ -50,73 +50,120 @@ namespace FUEN_Csharp_HW
         }
     }
 
+    public enum Subject
+    {
+        Unknown = -1,
+        Chinese = 0,
+        Math = 1,
+        English = 2,
+    }
+
+    public static class SubjectExtension
+    {
+        public static string GetDisplayName(Subject subject)
+        {
+            switch (subject)
+            {
+                case Subject.Chinese: return "國文";
+                case Subject.Math: return "數學";
+                case Subject.English: return "英文";
+                default: return "未知科目";
+            }
+        }
+    }
+
     public class Student
     {
         private string m_name;
         public string Name { get => m_name; }
-        private List<SubjectScore> m_scoreList;
+        private Dictionary<Subject, int> m_scoreMap = new Dictionary<Subject, int>();
 
         public Student() { }
 
         public Student(string name, int chinese, int math, int english)
         {
             m_name = name;
-            long before = GC.GetTotalMemory(true);
-            m_scoreList = new List<SubjectScore>(3)
-            {
-                new SubjectScore(Subject.Chinese, chinese),
-                new SubjectScore(Subject.Math, math),
-                new SubjectScore(Subject.English, english)
-            };
-            long after = GC.GetTotalMemory(true);
-            Console.WriteLine(after - before);
+
+            //GC這幾行是在算記憶體增長, 現階段先不考慮, 先求有再求好
+            //long before = GC.GetTotalMemory(true);
+            m_scoreMap.Add(Subject.Chinese, chinese);
+            m_scoreMap.Add(Subject.Math, math);
+            m_scoreMap.Add(Subject.English, english);
+            //long after = GC.GetTotalMemory(true);
+            //Console.WriteLine(after - before);
         }
 
+        public void SetScore(Subject subject, int score)
+        {
+            m_scoreMap[subject] = score;
+        }
+
+        /// <summary>
+        /// 各科總和
+        /// </summary>
         public int Sum()
         {
             int sum = 0;
-            for (int i = 0; i < m_scoreList.Count; i++)
-                sum += m_scoreList[i].Score;
+            foreach (KeyValuePair<Subject, int> pair in m_scoreMap)
+                sum += pair.Value;
             return sum;
         }
 
+        /// <summary>
+        /// 各科平均
+        /// </summary>
         public int Avg()
         {
+            if (m_scoreMap.Count <= 0)
+                return 0;
+
             float sum = Sum();
-            return Convert.ToInt32(Math.Round(sum / m_scoreList.Count, 0));
+            return Convert.ToInt32(Math.Round(sum / m_scoreMap.Count, 0));
         }
 
+        /// <summary>
+        /// 找最高分科目
+        /// </summary>
         public SubjectScore GetHighest()
         {
-            SubjectScore result = m_scoreList[0];
+            Subject subject = Subject.Unknown;
+            int score = -1;
 
-            for (int i = 1; i < m_scoreList.Count; i++)
+            foreach (KeyValuePair<Subject, int> pair in m_scoreMap)
             {
-                if (m_scoreList[i].Score > result.Score)
-                    result = m_scoreList[i];
+                if (pair.Value > score)
+                {
+                    subject = pair.Key;
+                    score = pair.Value;
+                }
             }
-
-            return result;
+            return new SubjectScore(subject, score);
         }
 
+        /// <summary>
+        /// 找最低分科目
+        /// </summary>
         public SubjectScore GetLowest()
         {
-            SubjectScore result = m_scoreList[0];
+            Subject subject = Subject.Unknown;
+            int score = 9999;
 
-            for (int i = 1; i < m_scoreList.Count; i++)
+            foreach (KeyValuePair<Subject, int> pair in m_scoreMap)
             {
-                if (m_scoreList[i].Score < result.Score)
-                    result = m_scoreList[i];
+                if (pair.Value < score)
+                {
+                    subject = pair.Key;
+                    score = pair.Value;
+                }
             }
-
-            return result;
+            return new SubjectScore(subject, score);
         }
 
         public override string ToString()
         {
             string result = $"姓名:{Name}\n";
-            foreach (SubjectScore subjectScore in m_scoreList)
-                result += $"{subjectScore.Name}:{subjectScore.Score}\n";
+            foreach (var v in m_scoreMap)
+                result += $"{SubjectExtension.GetDisplayName(v.Key)}:{v.Value}\n";
             return result;
         }
     }
@@ -124,23 +171,8 @@ namespace FUEN_Csharp_HW
     public struct SubjectScore
     {
         private Subject m_subject;
-        public string Name
-        {
-            get
-            {
-                switch (m_subject)
-                {
-                    case Subject.Chinese:
-                        return "國文";
-                    case Subject.Math:
-                        return "數學";
-                    case Subject.English:
-                        return "英文";
-                    default:
-                        return "科目名稱異常";
-                }
-            }
-        }
+        public Subject Subject { get => m_subject; }
+        public string Name { get => SubjectExtension.GetDisplayName(m_subject); }
         private int m_score;
         public int Score { get => m_score; }
 
@@ -149,12 +181,5 @@ namespace FUEN_Csharp_HW
             m_subject = subject;
             m_score = score;
         }
-    }
-
-    public enum Subject
-    {
-        Chinese = 0,
-        Math,
-        English
     }
 }
