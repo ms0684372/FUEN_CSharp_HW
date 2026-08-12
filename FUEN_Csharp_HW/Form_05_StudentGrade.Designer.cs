@@ -29,10 +29,12 @@
         private void InitializeComponent()
         {
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.btnAddRandom = new System.Windows.Forms.Button();
-            this.btnAddRandom20 = new System.Windows.Forms.Button();
-            this.btnReset = new System.Windows.Forms.Button();
-            this.btnStatistics = new System.Windows.Forms.Button();
+            this.label6 = new System.Windows.Forms.Label();
+            this.textSearchHigh = new System.Windows.Forms.TextBox();
+            this.textSeachLow = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.comboSubject = new System.Windows.Forms.ComboBox();
+            this.btnSearch = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
             this.textEn = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
@@ -43,13 +45,11 @@
             this.textName = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.labelStatistics = new System.Windows.Forms.Label();
+            this.btnAddRandom20 = new System.Windows.Forms.Button();
+            this.btnAddRandom = new System.Windows.Forms.Button();
             this.listviewStudents = new System.Windows.Forms.ListView();
-            this.comboSubject = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.textSeachLow = new System.Windows.Forms.TextBox();
-            this.textSearchHigh = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.btnSearch = new System.Windows.Forms.Button();
+            this.btnStatistics = new System.Windows.Forms.Button();
+            this.btnReset = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -93,49 +93,62 @@
             this.splitContainer1.SplitterWidth = 1;
             this.splitContainer1.TabIndex = 0;
             // 
-            // btnAddRandom
+            // label6
             // 
-            this.btnAddRandom.Font = new System.Drawing.Font("新細明體", 12F);
-            this.btnAddRandom.Location = new System.Drawing.Point(52, 505);
-            this.btnAddRandom.Name = "btnAddRandom";
-            this.btnAddRandom.Size = new System.Drawing.Size(137, 28);
-            this.btnAddRandom.TabIndex = 13;
-            this.btnAddRandom.Text = "新增隨機資料";
-            this.btnAddRandom.UseVisualStyleBackColor = true;
-            this.btnAddRandom.Click += new System.EventHandler(this.btnAddRandom_Click);
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("新細明體", 12F);
+            this.label6.Location = new System.Drawing.Point(80, 312);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(12, 16);
+            this.label6.TabIndex = 17;
+            this.label6.Text = "-";
             // 
-            // btnAddRandom20
+            // textSearchHigh
             // 
-            this.btnAddRandom20.Font = new System.Drawing.Font("新細明體", 12F);
-            this.btnAddRandom20.Location = new System.Drawing.Point(195, 505);
-            this.btnAddRandom20.Name = "btnAddRandom20";
-            this.btnAddRandom20.Size = new System.Drawing.Size(137, 28);
-            this.btnAddRandom20.TabIndex = 13;
-            this.btnAddRandom20.Text = "新增隨機20筆";
-            this.btnAddRandom20.UseVisualStyleBackColor = true;
-            this.btnAddRandom20.Click += new System.EventHandler(this.btnAddRandom20_Click);
+            this.textSearchHigh.Font = new System.Drawing.Font("新細明體", 12F);
+            this.textSearchHigh.Location = new System.Drawing.Point(97, 306);
+            this.textSearchHigh.Name = "textSearchHigh";
+            this.textSearchHigh.Size = new System.Drawing.Size(56, 27);
+            this.textSearchHigh.TabIndex = 16;
             // 
-            // btnReset
+            // textSeachLow
             // 
-            this.btnReset.Font = new System.Drawing.Font("新細明體", 12F);
-            this.btnReset.Location = new System.Drawing.Point(338, 505);
-            this.btnReset.Name = "btnReset";
-            this.btnReset.Size = new System.Drawing.Size(137, 28);
-            this.btnReset.TabIndex = 13;
-            this.btnReset.Text = "重設所有資料";
-            this.btnReset.UseVisualStyleBackColor = true;
-            this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
+            this.textSeachLow.Font = new System.Drawing.Font("新細明體", 12F);
+            this.textSeachLow.Location = new System.Drawing.Point(19, 306);
+            this.textSeachLow.Name = "textSeachLow";
+            this.textSeachLow.Size = new System.Drawing.Size(56, 27);
+            this.textSeachLow.TabIndex = 16;
             // 
-            // btnStatistics
+            // label1
             // 
-            this.btnStatistics.Font = new System.Drawing.Font("新細明體", 12F);
-            this.btnStatistics.Location = new System.Drawing.Point(481, 505);
-            this.btnStatistics.Name = "btnStatistics";
-            this.btnStatistics.Size = new System.Drawing.Size(137, 28);
-            this.btnStatistics.TabIndex = 13;
-            this.btnStatistics.Text = "各科統計";
-            this.btnStatistics.UseVisualStyleBackColor = true;
-            this.btnStatistics.Click += new System.EventHandler(this.btnStatistics_Click);
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("新細明體", 12F);
+            this.label1.Location = new System.Drawing.Point(16, 249);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(103, 16);
+            this.label1.TabIndex = 15;
+            this.label1.Text = "搜索成績範圍";
+            // 
+            // comboSubject
+            // 
+            this.comboSubject.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboSubject.Font = new System.Drawing.Font("新細明體", 12F);
+            this.comboSubject.FormattingEnabled = true;
+            this.comboSubject.Location = new System.Drawing.Point(19, 272);
+            this.comboSubject.Name = "comboSubject";
+            this.comboSubject.Size = new System.Drawing.Size(134, 24);
+            this.comboSubject.TabIndex = 14;
+            // 
+            // btnSearch
+            // 
+            this.btnSearch.Font = new System.Drawing.Font("新細明體", 12F);
+            this.btnSearch.Location = new System.Drawing.Point(19, 342);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Size = new System.Drawing.Size(134, 28);
+            this.btnSearch.TabIndex = 13;
+            this.btnSearch.Text = "搜尋";
+            this.btnSearch.UseVisualStyleBackColor = true;
+            this.btnSearch.Click += new System.EventHandler(this.OnBtnSearch_Click);
             // 
             // btnAdd
             // 
@@ -229,6 +242,28 @@
             this.labelStatistics.Size = new System.Drawing.Size(619, 155);
             this.labelStatistics.TabIndex = 1;
             // 
+            // btnAddRandom20
+            // 
+            this.btnAddRandom20.Font = new System.Drawing.Font("新細明體", 12F);
+            this.btnAddRandom20.Location = new System.Drawing.Point(195, 505);
+            this.btnAddRandom20.Name = "btnAddRandom20";
+            this.btnAddRandom20.Size = new System.Drawing.Size(137, 28);
+            this.btnAddRandom20.TabIndex = 13;
+            this.btnAddRandom20.Text = "新增隨機20筆";
+            this.btnAddRandom20.UseVisualStyleBackColor = true;
+            this.btnAddRandom20.Click += new System.EventHandler(this.btnAddRandom20_Click);
+            // 
+            // btnAddRandom
+            // 
+            this.btnAddRandom.Font = new System.Drawing.Font("新細明體", 12F);
+            this.btnAddRandom.Location = new System.Drawing.Point(52, 505);
+            this.btnAddRandom.Name = "btnAddRandom";
+            this.btnAddRandom.Size = new System.Drawing.Size(137, 28);
+            this.btnAddRandom.TabIndex = 13;
+            this.btnAddRandom.Text = "新增隨機資料";
+            this.btnAddRandom.UseVisualStyleBackColor = true;
+            this.btnAddRandom.Click += new System.EventHandler(this.btnAddRandom_Click);
+            // 
             // listviewStudents
             // 
             this.listviewStudents.BackColor = System.Drawing.SystemColors.Control;
@@ -242,61 +277,27 @@
             this.listviewStudents.UseCompatibleStateImageBehavior = false;
             this.listviewStudents.View = System.Windows.Forms.View.Details;
             // 
-            // comboSubject
+            // btnStatistics
             // 
-            this.comboSubject.Font = new System.Drawing.Font("新細明體", 12F);
-            this.comboSubject.FormattingEnabled = true;
-            this.comboSubject.Location = new System.Drawing.Point(19, 311);
-            this.comboSubject.Name = "comboSubject";
-            this.comboSubject.Size = new System.Drawing.Size(134, 24);
-            this.comboSubject.TabIndex = 14;
+            this.btnStatistics.Font = new System.Drawing.Font("新細明體", 12F);
+            this.btnStatistics.Location = new System.Drawing.Point(481, 505);
+            this.btnStatistics.Name = "btnStatistics";
+            this.btnStatistics.Size = new System.Drawing.Size(137, 28);
+            this.btnStatistics.TabIndex = 13;
+            this.btnStatistics.Text = "各科統計";
+            this.btnStatistics.UseVisualStyleBackColor = true;
+            this.btnStatistics.Click += new System.EventHandler(this.btnStatistics_Click);
             // 
-            // label1
+            // btnReset
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("新細明體", 12F);
-            this.label1.Location = new System.Drawing.Point(16, 288);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(103, 16);
-            this.label1.TabIndex = 15;
-            this.label1.Text = "搜索成績範圍";
-            // 
-            // textSeachLow
-            // 
-            this.textSeachLow.Font = new System.Drawing.Font("新細明體", 12F);
-            this.textSeachLow.Location = new System.Drawing.Point(19, 345);
-            this.textSeachLow.Name = "textSeachLow";
-            this.textSeachLow.Size = new System.Drawing.Size(56, 27);
-            this.textSeachLow.TabIndex = 16;
-            // 
-            // textSearchHigh
-            // 
-            this.textSearchHigh.Font = new System.Drawing.Font("新細明體", 12F);
-            this.textSearchHigh.Location = new System.Drawing.Point(97, 345);
-            this.textSearchHigh.Name = "textSearchHigh";
-            this.textSearchHigh.Size = new System.Drawing.Size(56, 27);
-            this.textSearchHigh.TabIndex = 16;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("新細明體", 12F);
-            this.label6.Location = new System.Drawing.Point(80, 354);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(12, 16);
-            this.label6.TabIndex = 17;
-            this.label6.Text = "-";
-            // 
-            // btnSearch
-            // 
-            this.btnSearch.Font = new System.Drawing.Font("新細明體", 12F);
-            this.btnSearch.Location = new System.Drawing.Point(19, 381);
-            this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(134, 28);
-            this.btnSearch.TabIndex = 13;
-            this.btnSearch.Text = "搜尋";
-            this.btnSearch.UseVisualStyleBackColor = true;
-            this.btnSearch.Click += new System.EventHandler(this.btnAdd_Click);
+            this.btnReset.Font = new System.Drawing.Font("新細明體", 12F);
+            this.btnReset.Location = new System.Drawing.Point(338, 505);
+            this.btnReset.Name = "btnReset";
+            this.btnReset.Size = new System.Drawing.Size(137, 28);
+            this.btnReset.TabIndex = 13;
+            this.btnReset.Text = "重設所有資料";
+            this.btnReset.UseVisualStyleBackColor = true;
+            this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
             // 
             // Form_05_StudentGrade
             // 

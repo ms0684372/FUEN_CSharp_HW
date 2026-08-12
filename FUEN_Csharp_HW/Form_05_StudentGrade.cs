@@ -20,12 +20,14 @@ namespace FUEN_Csharp_HW
         public Form_05_StudentGrade()
         {
             InitializeComponent();
-            InitializeStudentColumn();
+
+            List<Subject> subjects = SubjectExtension.GetAllSubject();
+            InitializeStudentColumn(subjects);
+            InitializeComboSubject(subjects);
         }
 
-        private void InitializeStudentColumn()
+        private void InitializeStudentColumn(List<Subject> subjects)
         {
-            List<Subject> subjects = SubjectExtension.GetAllSubject();
 
             List<ColumnHeader> columnHeaders = new List<ColumnHeader>();
             columnHeaders.Add(listviewStudents.Columns.Add("姓名"));
@@ -36,13 +38,31 @@ namespace FUEN_Csharp_HW
             columnHeaders.Add(listviewStudents.Columns.Add("最高"));
             columnHeaders.Add(listviewStudents.Columns.Add("最低"));
 
-            // 1.5x + (columnHeaders.Count-1)x = listStudents.Width;
+            /* 
+             * 讓姓名欄位大概寬1.5倍
+             * 1.5x + (columnHeaders.Count-1)x = listStudents.Width;
+             */
 
             int width = (int)(listviewStudents.Width / (columnHeaders.Count + 0.5f));
             int nameWidth = listviewStudents.Width - (width * (columnHeaders.Count - 1));
             columnHeaders[0].Width = nameWidth;
             for (int i = 1; i < columnHeaders.Count; i++)
+            {
                 columnHeaders[i].Width = width;
+            }
+        }
+
+        /// <summary>
+        /// 初始化科目下拉選單
+        /// </summary>
+        private void InitializeComboSubject(List<Subject> subjects)
+        {
+            foreach (Subject subject in subjects)
+            {
+                comboSubject.Items.Add(SubjectExtension.GetDisplayName(subject));
+            }
+            comboSubject.SelectedIndex = 0; //預設設為0
+            //Console.WriteLine(comboSubject.SelectedIndex);
         }
 
         /// <summary>
@@ -68,14 +88,7 @@ namespace FUEN_Csharp_HW
         private void AddStudent(Student student)
         {
             studentsList.Add(student);
-
-            /* 
-             * ListViewItem的SubItem底層是用陣列當容器
-             * ListViewItem.Text 是取自SubItem[0]
-             * 建議一開始就將所需的全部內容(姓名, 分數等)都準備好
-             */
-            ListViewItem item = new ListViewItem(student.GetResult());
-            listviewStudents.Items.Add(item);
+            CreateStudentItem(student);
         }
 
         /// <summary>
@@ -84,19 +97,10 @@ namespace FUEN_Csharp_HW
         public void AddStudents(ICollection<Student> values)
         {
             studentsList.AddRange(values);
-
-            /* 
-             * ListViewItem的SubItem底層是用陣列當容器
-             * ListViewItem.Text 是取自SubItem[0]
-             * 建議一開始就將所需的全部內容(姓名, 分數等)都準備好
-             */
-
-            foreach (Student student in values)
-            {
-                ListViewItem item = new ListViewItem(student.GetResult());
-                listviewStudents.Items.Add(item);
-            }
+            CreateStudentItems(values);
         }
+
+
 
         /// <summary>
         /// 清空輸入欄位
@@ -211,6 +215,63 @@ namespace FUEN_Csharp_HW
         {
             studentsList.Clear();
             listviewStudents.Items.Clear();
+        }
+
+        private void OnBtnSearch_Click(object sender, EventArgs e)
+        {
+            if (comboSubject.SelectedIndex < 0)
+            {
+                MessageBox.Show("請選擇科目");
+                return;
+            }
+
+            if (!VerifyTxtScore(textSeachLow, out int lowScore, "請輸入最低分", "請正確輸入最低分數值") ||
+               !VerifyTxtScore(textSearchHigh, out int highScore, "請輸入最高分", "請正確輸入最高分數值"))
+            {
+                return;
+            }
+
+            //if (highScore < lowScore)
+            //{
+            //    MessageBox.Show("最低分高於最低分");
+            //    return;
+            //}
+
+            List<Subject> subjects = SubjectExtension.GetAllSubject();
+            Subject subject = subjects[comboSubject.SelectedIndex];
+            List<Student> tempList = studentsList.FindAll((stu) =>
+            {
+                int score = stu.GetScore(subject);
+                return score > lowScore && score < highScore;
+            });
+
+            listviewStudents.Items.Clear();
+            CreateStudentItems(tempList);
+        }
+
+        private void CreateStudentItem(Student student)
+        {
+            /* 
+             * ListViewItem的SubItem底層是用陣列當容器
+             * ListViewItem.Text 是取自SubItem[0]
+             * 建議一開始就將所需的全部內容(姓名, 分數等)都準備好
+             */
+            ListViewItem item = new ListViewItem(student.GetResult());
+            listviewStudents.Items.Add(item);
+        }
+
+        private void CreateStudentItems(ICollection<Student> students)
+        {
+            /* 
+             * ListViewItem的SubItem底層是用陣列當容器
+             * ListViewItem.Text 是取自SubItem[0]
+             * 建議一開始就將所需的全部內容(姓名, 分數等)都準備好
+             */
+            foreach (Student student in students)
+            {
+                ListViewItem item = new ListViewItem(student.GetResult());
+                listviewStudents.Items.Add(item);
+            }
         }
     }
 }
