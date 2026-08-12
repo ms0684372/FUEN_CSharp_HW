@@ -16,7 +16,7 @@ namespace FUEN_Csharp_HW
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form_04_ScoreStruct());
+            Application.Run(new Form_05_StudentGrade());
         }
     }
 }

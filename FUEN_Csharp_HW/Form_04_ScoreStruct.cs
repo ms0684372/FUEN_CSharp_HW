@@ -45,6 +45,9 @@ namespace FUEN_Csharp_HW
             ClearField();
         }
 
+        /// <summary>
+        /// 新增學生資料，並新增對應的UI Item
+        /// </summary>
         private void AddStudent(Student student)
         {
             students.Add(student);

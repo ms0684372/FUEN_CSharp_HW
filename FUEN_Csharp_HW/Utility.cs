@@ -70,6 +70,17 @@ namespace FUEN_Csharp_HW
                 default: return "未知科目";
             }
         }
+
+        /// <summary>
+        /// 取得全部Subject(不包含Unknown)
+        /// </summary>
+        public static List<Subject> GetAllSubject()
+        {
+            return Enum.GetValues(typeof(Subject))
+                .Cast<Subject>()
+                .Where(a => a != Subject.Unknown)   //排除Unknown
+                .ToList();
+        }
     }
 
     public class Student
@@ -98,6 +109,33 @@ namespace FUEN_Csharp_HW
             m_scoreMap[subject] = score;
         }
 
+        public int GetScore(Subject subject)
+        {
+            if (!m_scoreMap.TryGetValue(subject, out int score))
+                return -1;
+
+            return score;
+        }
+
+        /// <summary>
+        /// 姓名, 國, 英, 數, 總, 均, 高, 低
+        /// </summary>
+        public string[] GetResult()
+        {
+            string[] result = new string[]
+            {
+                Name,
+                GetScore(Subject.Chinese).ToString(),
+                GetScore(Subject.English).ToString(),
+                GetScore(Subject.Math).ToString(),
+                Sum().ToString(),
+                Avg().ToString(),
+                GetHighest().ToString(),
+                GetLowest().ToString(),
+            };
+            return result;
+        }
+
         /// <summary>
         /// 各科總和
         /// </summary>
@@ -112,13 +150,13 @@ namespace FUEN_Csharp_HW
         /// <summary>
         /// 各科平均
         /// </summary>
-        public int Avg()
+        public float Avg()
         {
             if (m_scoreMap.Count <= 0)
                 return 0;
 
             float sum = Sum();
-            return Convert.ToInt32(Math.Round(sum / m_scoreMap.Count, 0));
+            return Convert.ToInt32(Math.Round(sum / m_scoreMap.Count, 1));
         }
 
         /// <summary>
@@ -180,6 +218,12 @@ namespace FUEN_Csharp_HW
         {
             m_subject = subject;
             m_score = score;
+        }
+
+        public override string ToString()
+        {
+            return $"{Name}{m_score}";
+            ;
         }
     }
 }
