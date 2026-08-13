@@ -1,14 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using FUEN_Csharp_HW.Loan;
 
-namespace FUEN_Csharp_HW
+namespace FUEN_Csharp_HW.UI
 {
     public partial class Form_02_1_Report : Form
     {

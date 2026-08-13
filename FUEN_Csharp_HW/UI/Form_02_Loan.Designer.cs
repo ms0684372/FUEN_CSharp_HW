@@ -1,4 +1,4 @@
-﻿namespace FUEN_Csharp_HW
+﻿namespace FUEN_Csharp_HW.UI
 {
     partial class Form_02_Loan
     {

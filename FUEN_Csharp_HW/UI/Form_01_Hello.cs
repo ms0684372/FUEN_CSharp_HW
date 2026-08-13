@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace FUEN_Csharp_HW
+namespace FUEN_Csharp_HW.UI
 {
     public partial class Form_01_Hello : Form
     {

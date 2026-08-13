@@ -1,88 +1,11 @@
-﻿using Microsoft.Win32.SafeHandles;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Dynamic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FUEN_Csharp_HW
+namespace FUEN_Csharp_HW.Score
 {
-    public class LoanData
-    {
-        public LoanData(decimal loanAmount, int year, decimal annualRate, decimal downPayment)
-        {
-            LoanAmount = loanAmount;
-            Year = year;
-            AnnualRate = annualRate;
-            DownPayment = downPayment;
-        }
-
-        public decimal LoanAmount { get; set; }
-        public int Year { get; set; }
-        public decimal AnnualRate { get; set; }
-        public decimal DownPayment { get; set; }
-
-        public decimal PMT
-        {
-            get
-            {
-                decimal principal = LoanAmount - DownPayment;
-                decimal monthlyRate = AnnualRate / 100 / 12;
-                int month = Year * 12;
-
-                decimal pmt;
-                if (monthlyRate == 0)
-                    pmt = principal / month;
-                else
-                    pmt = principal * monthlyRate / (1 - Convert.ToDecimal(Math.Pow(Convert.ToDouble(1 + monthlyRate), -month)));
-
-                return pmt;
-            }
-        }
-
-        public decimal TotalAmount
-        {
-            get
-            {
-                return PMT * Year * 12;
-            }
-        }
-    }
-
-    public enum Subject
-    {
-        Unknown = -1,
-        Chinese = 0,
-        Math = 1,
-        English = 2,
-    }
-
-    public static class SubjectExtension
-    {
-        public static string GetDisplayName(Subject subject)
-        {
-            switch (subject)
-            {
-                case Subject.Chinese: return "國文";
-                case Subject.Math: return "數學";
-                case Subject.English: return "英文";
-                default: return "未知科目";
-            }
-        }
-
-        /// <summary>
-        /// 取得全部Subject(不包含Unknown)
-        /// </summary>
-        public static List<Subject> GetAllSubject()
-        {
-            return Enum.GetValues(typeof(Subject))
-                .Cast<Subject>()
-                .Where(a => a != Subject.Unknown)   //排除Unknown
-                .ToList();
-        }
-    }
-
     public class Student
     {
         private string m_name;
@@ -203,27 +126,6 @@ namespace FUEN_Csharp_HW
             foreach (var v in m_scoreMap)
                 result += $"{SubjectExtension.GetDisplayName(v.Key)}:{v.Value}\n";
             return result;
-        }
-    }
-
-    public struct SubjectScore
-    {
-        private Subject m_subject;
-        public Subject Subject { get => m_subject; }
-        public string Name { get => SubjectExtension.GetDisplayName(m_subject); }
-        private int m_score;
-        public int Score { get => m_score; }
-
-        public SubjectScore(Subject subject, int score)
-        {
-            m_subject = subject;
-            m_score = score;
-        }
-
-        public override string ToString()
-        {
-            return $"{Name}{m_score}";
-            ;
         }
     }
 }
